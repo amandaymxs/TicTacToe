@@ -17,3 +17,7 @@ div.row{
 div.row:last-child{
     border-bottom: none;
 }
+
+div.col-sm:hover{
+    background-color: rgb(236, 236, 236);
+}

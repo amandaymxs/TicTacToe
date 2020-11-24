@@ -1,10 +1,6 @@
-let colSm = $(".col-sm");
-let container = $(".container");
+const board = document.querySelector(".boardContainer");
 
-window.addEventListener('load', function () {
-    //generate board tiles//
-    $("div.col-sm").addClass("tile");
-
-
+board.addEventListener("click", (e) => {
+    e.target.innerText = "X";
 })
 

@@ -10,18 +10,21 @@ const playerTwo = {
 const board = document.querySelector(".boardContainer");
 const allCells = document.querySelectorAll(".cell");
 const reset = document.querySelector("#reset");
-let scoreCounter = [...Array(8)].fill('0');
+let scoreCounter = [...Array(9)].fill(0);
 let counter = 0;
 
 //////////////////////////////////////////////////////////////
 
 board.addEventListener("mouseup", playBoard);
 
+
 reset.addEventListener('click', () => {
     for (let cell in allCells) {
         allCells[cell].innerText = "";
     }
     counter = 0;
+    board.addEventListener("mouseup", playBoard);
+    scoreCounter.fill(0);
 })
 
 //////////////////////////////////////////////////////////////
@@ -31,14 +34,16 @@ function playBoard(e) {
     if (e.target.innerText == "") {
         e.target.innerText = `${player.mark}`;
         scoreCounter[e.target.id] = player.point;
-        console.log(scoreCounter[e.target.id]);
-        if (counter >= 4) {
-            if (isGameOver()) {
-                console.log(`Player ${player.mark} is the winner!`);
-                toggleBoard(this.Function);
-            }
+        console.log(e.target.id);
+        // console.log(scoreCounter[e.target.id]);
+        // if (counter >= 4) {
+        if (isGameOver()) {
+            console.log(`Player ${player.mark} is the winner!`);
+            toggleBoard(this.Function);
         }
+        // }
         counter++;
+
     }
 }
 
@@ -47,29 +52,35 @@ function turn() {
 }
 
 function isGameOver() {
-    for (let i = 0; i < 9; i += 3) {
-        let _sum = scoreCounter[0 + i] + scoreCounter[1 + i] + scoreCounter[2 + i];
-        if (Math.abs(_sum) === 3) {
-            return true;
-        }
-    }
     let sumCounter = 0;
-    for (let i = 0; i < 9; i += 4) {
-        sumCounter += scoreCounter[i];
+    for (let i = 0; i < 9; i += 3) {
+        sumCounter = scoreCounter[0 + i] + scoreCounter[1 + i] + scoreCounter[2 + i];
+        console.log(i, sumCounter);
+
+        if (Math.abs(sumCounter) === 3) {
+            return true;
+        }
+
+    }
+    console.log("space");
+    for (let i = 0; i < 3; i++) {
+        sumCounter = scoreCounter[0 + i] + scoreCounter[3 + i] + scoreCounter[6 + i];
+        console.log(i, sumCounter);
+
         if (Math.abs(sumCounter) === 3) {
             return true;
         }
     }
-    sumCounter = 0;
-    for (let i = 2; i < 7; i += 2) {
-        sumCounter += scoreCounter[i];
-        if (Math.abs(sumCounter) === 3) {
-            return true;
-        }
+
+    if (Math.abs(scoreCounter[0] + scoreCounter[4] + scoreCounter[8]) === 3) {
+        return true;
+    } else if (Math.abs(scoreCounter[2] + scoreCounter[4] + scoreCounter[6]) === 3) {
+        return true;
     }
+
     return false;
 }
 
-function toggleBoard(boardFunction) {
+function toggleBoard() {
     board.removeEventListener('mouseup', playBoard);
 }

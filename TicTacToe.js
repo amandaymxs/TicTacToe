@@ -1,12 +1,10 @@
 const playerOne = {
     mark: 'X',
-    point: 1,
-    cellTracker: []
+    point: 1
 }
 const playerTwo = {
     mark: 'O',
-    point: -1,
-    cellTracker: []
+    point: -1
 }
 
 const board = document.querySelector(".boardContainer");
@@ -19,6 +17,7 @@ let counter = 0;
 
 board.addEventListener("mouseup", playBoard);
 
+
 reset.addEventListener('click', () => {
     for (let cell in allCells) {
         allCells[cell].innerText = "";
@@ -26,8 +25,6 @@ reset.addEventListener('click', () => {
     counter = 0;
     board.addEventListener("mouseup", playBoard);
     scoreCounter.fill(0);
-    playerOne.cellTracker = [];
-    playerTwo.cellTracker = [];
 })
 
 //////////////////////////////////////////////////////////////
@@ -37,12 +34,10 @@ function playBoard(e) {
     if (e.target.innerText == "") {
         e.target.innerText = `${player.mark}`;
         scoreCounter[e.target.id] = player.point;
-        player.cellTracker.push(e.target.id);
         if (counter >= 4) {
             if (isGameOver()) {
                 console.log(`Player ${player.mark} is the winner!`);
                 toggleBoard(this.Function);
-                gameOverColour(this.player);
             }
         }
         counter++;
@@ -60,10 +55,11 @@ function isGameOver() {
         if (Math.abs(sumCounter) === 3) {
             return true;
         }
-    }
 
+    }
     for (let i = 0; i < 3; i++) {
         sumCounter = scoreCounter[0 + i] + scoreCounter[3 + i] + scoreCounter[6 + i];
+        console.log(i, sumCounter);
         if (Math.abs(sumCounter) === 3) {
             return true;
         }
@@ -80,13 +76,4 @@ function isGameOver() {
 
 function toggleBoard() {
     board.removeEventListener('mouseup', playBoard);
-}
-
-function gameOverColour(player) {
-    for (let i of player.cellTracker) {
-        const r = Math.floor(Math.random() * 255);
-        const g = Math.floor(Math.random() * 255);
-        const b = Math.floor(Math.random() * 255);
-        document.getElementById(`'${i}'`).backgroundColor = `rgb${r},${g},${b}`;
-    }
 }

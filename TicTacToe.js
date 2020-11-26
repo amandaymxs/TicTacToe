@@ -59,7 +59,6 @@ function isGameOver() {
     }
     for (let i = 0; i < 3; i++) {
         sumCounter = scoreCounter[0 + i] + scoreCounter[3 + i] + scoreCounter[6 + i];
-        console.log(i, sumCounter);
         if (Math.abs(sumCounter) === 3) {
             return true;
         }

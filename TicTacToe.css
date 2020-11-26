@@ -1,6 +1,6 @@
 body{
-    font-family: 'Ramaraja', serif;
-    text-align: center;
+    font-family: 'Fredoka One', cursive;
+        text-align: center;
 }
 
 h1{
@@ -15,14 +15,17 @@ h1{
 }
 
 .cell{
-    width: 100%;
-    height: 10em;
-    border-right: 0.4em solid rgb(77, 77, 77);
-    border-right-style: double;
-    border-bottom: 0.4em solid rgb(77, 77, 77);
-    border-bottom-style: double;
-    font-family: 'Fredoka One', cursive;
-    line-height: 150px; //hard-code center
+    width: 3em;
+    height: 3.5em;
+    border-right: 0.2em dotted rgb(77, 77, 77);
+    border-bottom: 0.2em dotted rgb(77, 77, 77);
+    font-size: 3em;
+    line-height: 3.5em; //hard-code center
+}
+
+#reset{
+    margin-top: 2em;
+    font-size: 1em;
 }
 
 .cell:nth-of-type(3n){

@@ -38,7 +38,6 @@ function playBoard(e) {
 
     if (e.target.innerText == "") {
         e.target.innerText = `${player.mark}`;
-
         scoreCounter[e.target.id.substring(1)] = player.point;
         if (isGameOver()) {
             toggleBoard(this.Function);
@@ -47,6 +46,7 @@ function playBoard(e) {
             counter++;
             player = turn();
             displayTurn(player.mark);
+
         }
     }
 }

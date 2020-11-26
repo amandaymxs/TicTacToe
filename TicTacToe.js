@@ -33,7 +33,7 @@ function playBoard(e) {
     let player = turn();
     if (e.target.innerText == "") {
         e.target.innerText = `${player.mark}`;
-        scoreCounter[e.target.id] = player.point;
+        scoreCounter[e.target.id.substring(1)] = player.point;
         if (counter >= 4) {
             if (isGameOver()) {
                 console.log(`Player ${player.mark} is the winner!`);

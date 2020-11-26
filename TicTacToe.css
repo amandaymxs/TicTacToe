@@ -12,6 +12,7 @@ h1{
     grid-template-columns: repeat(3, auto);
     width: 30%;
     margin: 1em auto;
+    justify-content: center;
 }
 
 .cell{

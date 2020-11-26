@@ -12,9 +12,12 @@ const allCells = document.querySelectorAll(".cell");
 const reset = document.querySelector("#reset");
 let scoreCounter = [...Array(9)].fill(0);
 let counter = 0;
+let player = turn();
 
 //////////////////////////////////////////////////////////////
-
+window.addEventListener('load', () => {
+    displayTurn(player.mark);
+})
 board.addEventListener("mouseup", playBoard);
 
 
@@ -25,27 +28,31 @@ reset.addEventListener('click', () => {
     counter = 0;
     board.addEventListener("mouseup", playBoard);
     scoreCounter.fill(0);
+    player = turn();
+    displayTurn(player.mark);
 })
 
 //////////////////////////////////////////////////////////////
 
 function playBoard(e) {
-    let player = turn();
+
     if (e.target.innerText == "") {
         e.target.innerText = `${player.mark}`;
-        scoreCounter[e.target.id] = player.point;
-        if (counter >= 4) {
-            if (isGameOver()) {
-                console.log(`Player ${player.mark} is the winner!`);
-                toggleBoard(this.Function);
-            }
+
+        scoreCounter[e.target.id.substring(1)] = player.point;
+        if (isGameOver()) {
+            toggleBoard(this.Function);
+            announceWinner();
+        } else {
+            counter++;
+            player = turn();
+            displayTurn(player.mark);
         }
-        counter++;
     }
 }
 
 function turn() {
-    return (counter % 2 == 0 ? playerOne : playerTwo);
+    return (counter % 2 === 0 ? playerOne : playerTwo);
 }
 
 function isGameOver() {
@@ -59,7 +66,6 @@ function isGameOver() {
     }
     for (let i = 0; i < 3; i++) {
         sumCounter = scoreCounter[0 + i] + scoreCounter[3 + i] + scoreCounter[6 + i];
-        console.log(i, sumCounter);
         if (Math.abs(sumCounter) === 3) {
             return true;
         }
@@ -76,4 +82,12 @@ function isGameOver() {
 
 function toggleBoard() {
     board.removeEventListener('mouseup', playBoard);
+}
+
+function displayTurn(player) {
+    document.querySelector(".turn").innerText = `${player}`;
+}
+
+function announceWinner() {
+    document.querySelector(".annoucement").innerText = `Player ${player.mark} won!`;
 }
